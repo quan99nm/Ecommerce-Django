@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-c-dbxzk@)0+=!ncsx7n5jtrgzec5c+j&8+d+25p)-kw=zk7^5y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "ecomerce.inventory",
     "rest_framework",
     "rest_framework.authtoken",
+    "whitenoise.runserver_nostatic",  # Make sure to add this
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # make sure to add this line
 ]
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
