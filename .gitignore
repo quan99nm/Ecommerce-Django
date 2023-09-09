@@ -1,0 +1,59 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches and Logs
+*.log
+*.pot
+*.pyc
+db.sqlite3
+__pycache__/
+local_settings.py
+
+# Django generated files
+*.settings.py
+
+# Media files
+media/
+
+# Static files
+static/
+
+# Environment Variables
+.env
+
+# macOS
+.DS_Store
+
+# Python virtual environment
+.venv/
+
+# Editors
+.vscode/
+.idea/
+
+# Compiled Python files
+*.pyc
+
+# Testing
+.coverage
+
+# Local development settings
+local_settings.py
+
+# System files
+Thumbs.db
+ehthumbs.db
+
+# Windows image file caches
+Desktop.ini
+
+# Python crash report
+*.pyimport
+
+# Node.js
+node_modules/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
