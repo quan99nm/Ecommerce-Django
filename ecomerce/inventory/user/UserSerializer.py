@@ -13,11 +13,13 @@ class ProfileSerializer(serializers.ModelSerializer):
     # Specify the model and fields to use for serialization and deserialization
     class Meta:
         model = Profile
-        fields = ["phone", "address"]
+        fields = fields = "__all__"
 
 
 # Create a UserSerializer class that inherits from serializers.ModelSerializer
 class UserSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer()
+
     # Specify the model and fields to use for serialization and deserialization
     class Meta:
         model = User
@@ -71,4 +73,3 @@ class UserSerializer(serializers.ModelSerializer):
         return instance
 
     # Nest a ProfileSerializer inside the UserSerializer to serialize and deserialize related objects
-    profile = ProfileSerializer()

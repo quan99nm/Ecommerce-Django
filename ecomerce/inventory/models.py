@@ -23,8 +23,16 @@ class Product(models.Model):
 
 
 class Order(models.Model):
-    customer = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    products = models.ManyToManyField(Product, through="OrderItem")
+    customer = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, null=True, blank=True
+    )
+    products = models.ManyToManyField(
+        Product, through="OrderItem", related_name="order_items"
+    )
+    phone = models.CharField(max_length=15, null=True)
+    # Create an address field that stores the user's address
+    address = models.TextField(null=True)
+    name = models.TextField(null=True)
     order_date = models.DateTimeField(auto_now_add=True)
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
 

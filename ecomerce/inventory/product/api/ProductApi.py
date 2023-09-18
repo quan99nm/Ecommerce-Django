@@ -6,8 +6,12 @@ from ecomerce.inventory.serializers.ProductSerializer import (
     ProductSerializer,
     CategorySerializer,
     ProductsInCategorySerializer,
+    OrderSerializer,
 )
 from rest_framework import generics
+
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
 
 # Import your Product serializer
 
@@ -53,3 +57,30 @@ class ProductsInCategoryView(generics.ListAPIView):
             )
         except Category.DoesNotExist:
             return Response({"detail": "Category not found."}, status=404)
+
+
+def product_image(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    if product.image:
+        image_path = product.image.path
+        with open(image_path, "rb") as image_file:
+            return HttpResponse(
+                image_file.read(), content_type="image/jpeg"
+            )  # Adjust content_type if needed
+    else:
+        return HttpResponse(status=404)
+
+
+class NewestProductsView(generics.ListAPIView):
+    queryset = Product.objects.all().order_by("-id")[:3]  # Retrieve 3 newest products
+    serializer_class = ProductSerializer
+
+
+class CreateOrderView(APIView):
+    def post(self, request, format=None):
+        serializer = OrderSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

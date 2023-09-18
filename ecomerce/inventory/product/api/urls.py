@@ -4,6 +4,9 @@ from ecomerce.inventory.product.api.ProductApi import (
     ProductRetrieveView,
     CategoryListView,
     ProductsInCategoryView,
+    product_image,
+    NewestProductsView,
+    CreateOrderView,
 )
 
 urlpatterns = [
@@ -15,4 +18,7 @@ urlpatterns = [
         ProductsInCategoryView.as_view(),
         name="products-in-category-list",
     ),
+    path("products/<int:product_id>/image/", product_image, name="product_image"),
+    path("products/newest/", NewestProductsView.as_view(), name="newest-product"),
+    path("orders/create_order/", CreateOrderView.as_view(), name="create_order"),
 ]

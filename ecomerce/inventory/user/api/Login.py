@@ -13,6 +13,8 @@ from rest_framework.response import Response
 # Import the status module from the rest_framework module
 from rest_framework import status
 
+from ecomerce.inventory.user.UserSerializer import UserSerializer
+
 
 # Create a LoginAPIView class that inherits from APIView
 class LoginAPIView(APIView):
@@ -36,7 +38,10 @@ class LoginAPIView(APIView):
             # If yes, get or create a token for the user object
             token, created = Token.objects.get_or_create(user=user)
             # Return a 200 response with the token as data
-            return Response({"token": token.key}, status=status.HTTP_200_OK)
+            return Response(
+                {"token": token.key, "info": UserSerializer(user).data},
+                status=status.HTTP_200_OK,
+            )
         # If no, return a 401 response with an error message
         else:
             return Response(
